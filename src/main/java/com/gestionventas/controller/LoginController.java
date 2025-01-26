@@ -1,6 +1,7 @@
 package com.gestionventas.controller;
 
 import com.gestionventas.dto.usuario.LoginDto;
+import com.gestionventas.service.IUsuarioService;
 import com.gestionventas.shared.security.jwt.JWTAuthResonseDTO;
 import com.gestionventas.shared.security.jwt.JwtTokenProvider;
 import io.swagger.v3.oas.annotations.security.SecurityRequirements;
@@ -28,24 +29,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
 
     private final AuthenticationManager authenticationManager;
-    private final JwtTokenProvider jwtTokenProvider;
-
+    private final IUsuarioService usuarioService;
     @PostMapping()
     public ResponseEntity<JWTAuthResonseDTO> authenticateUser(@RequestBody LoginDto loginDTO){
         // sirve para verificar las credenciales del usuario
         // Comprueba si las credenciales son correctas utilizando la configuración de autenticación definidas
         // por, un UserDetailsService y un PasswordEncoder como BCrypt.
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword()));
-
-       // Obtener el principal (detalles del usuario)
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        System.out.println("============> "+ userDetails.getUsername());
-
-        //obtenemos el token del jwtTokenProvider
-        JWTAuthResonseDTO token = jwtTokenProvider.getSecurity(authentication);
-        return ResponseEntity.ok(token);
+        return ResponseEntity.ok( usuarioService.login(authentication));
     }
-
-
 
 }

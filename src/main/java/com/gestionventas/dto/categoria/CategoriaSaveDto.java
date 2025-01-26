@@ -15,7 +15,7 @@ public class CategoriaSaveDto {
     @Size(min = 3, message = "El nombre de la categoría debe tener al menos 3 caracteres")
     @NotBlank(message = "El nombre de la categoría es obligatorio")
     private String nombre;
-
+    private String nimagen;
     @Size(min = 5, message = "La descripción debe tener al menos 5 caracteres")
     @NotBlank(message = "La descripción es obligatoria")
     private String descripcion;

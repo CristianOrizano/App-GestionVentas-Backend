@@ -4,6 +4,7 @@ package com.gestionventas.shared.exeption;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,7 +25,6 @@ public class GlobalExceptionHandler {
         String error = HttpStatus.NOT_FOUND.getReasonPhrase(); // "Not Found"
         String message = exception.getMessage(); // Mensaje definido en la excepción
         String path = webRequest.getDescription(false).split("=")[1]; // Extrae la ruta de la solicitud
-
         ErrorDetalles errorDetalles = new ErrorDetalles(new Date(), status, error, message, path);
         return new ResponseEntity<>(errorDetalles, HttpStatus.NOT_FOUND);
     }
@@ -37,9 +37,18 @@ public class GlobalExceptionHandler {
         String error = HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase();
         String message = exception.getMessage();
         String path = webRequest.getDescription(false).split("=")[1];
-
         ErrorDetalles errorDetalles = new ErrorDetalles(new Date(), status, error, message, path);
         return new ResponseEntity<>(errorDetalles, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ErrorDetalles> manejarBadCredentialsException(BadCredentialsException exception, WebRequest webRequest) {
+        int status = HttpStatus.UNAUTHORIZED.value();
+        String error = HttpStatus.UNAUTHORIZED.getReasonPhrase();
+        String message = "Credenciales incorrectas. Por favor verifica tu usuario y contraseña.";
+        String path = webRequest.getDescription(false).split("=")[1];
+        ErrorDetalles errorDetalles = new ErrorDetalles(new Date(), status, error, message, path);
+        return new ResponseEntity<>(errorDetalles, HttpStatus.UNAUTHORIZED);
     }
 
     //manejar los errores en validacion de las apis

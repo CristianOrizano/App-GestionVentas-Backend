@@ -10,7 +10,10 @@ import com.gestionventas.repository.RolRepository;
 import com.gestionventas.repository.UsuarioRepository;
 import com.gestionventas.service.IUsuarioService;
 import com.gestionventas.shared.exeption.ResourceNotFoundException;
+import com.gestionventas.shared.security.jwt.JWTAuthResonseDTO;
+import com.gestionventas.shared.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +29,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final RolRepository rolRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Override
     public List<UsuarioDto> findAll() {
@@ -66,5 +70,17 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 .orElseThrow(() ->  new ResourceNotFoundException("Usuario no encontrada con ID: " + id));
         usuario.setState(!usuario.getState());
         return usuarioMapper.toDto(usuarioRepository.save(usuario));
+    }
+
+    @Override
+    public JWTAuthResonseDTO login(Authentication auth) {
+        JWTAuthResonseDTO security = new JWTAuthResonseDTO();
+        Usuario user = usuarioRepository.findByUsername(auth.getName());
+
+        String token = jwtTokenProvider.generarToken(auth);
+        security.setTokenDeAcceso(token);
+        security.setExpiresOn(jwtTokenProvider.getExpirationDateFromToken(token));
+        security.setUsuario(usuarioMapper.toDto(user));
+        return security;
     }
 }

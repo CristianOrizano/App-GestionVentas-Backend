@@ -33,8 +33,9 @@ public class CategoriaServiceImpl implements ICategoriaService {
     @Override
     public List<CategoriaDto> findAll() {
         return categoriaRepository.findAll().stream()
-                .map(categoriaMapper::toDto)
-                .toList();
+                .filter(categoria -> Boolean.TRUE.equals(categoria.getState())) // Filtra categorías activas
+                .map(categoriaMapper::toDto)                                   // Mapea a DTOs
+                .toList();                                                     // Convierte a lista
     }
 
     @Override
@@ -47,6 +48,7 @@ public class CategoriaServiceImpl implements ICategoriaService {
     @Override
     public CategoriaDto create(CategoriaSaveDto categoriaBody) {
         Categoria categoria = categoriaMapper.toEntity(categoriaBody);
+        categoria.setState(true);
         return categoriaMapper.toDto(categoriaRepository.save(categoria));
     }
 
