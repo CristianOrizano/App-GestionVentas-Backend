@@ -30,7 +30,4 @@ public class ClienteSaveDto {
 
     @NotNull(message = "El teléfono es obligatorio")
     private Integer telefono;
-
-    @NotNull(message = "El estado es obligatorio")
-    private Boolean state;
 }

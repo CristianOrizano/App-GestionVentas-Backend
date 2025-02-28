@@ -1,4 +1,4 @@
-package com.gestionventas.dto.producto;
+package com.gestionventas.dto.marca;
 
 import com.gestionventas.shared.page.PageRequest;
 import lombok.AllArgsConstructor;
@@ -12,12 +12,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductoFilterDto extends PageRequest {
-    private String descripcion;
-    private Integer stock;
-    private Double precio;
-    private String nimagen;
-    private Long idCategoria;
-    private Long idMarca;
+public class MarcaFilterDto extends PageRequest {
+    private String nombre;
     private Boolean state;
 }

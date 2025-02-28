@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -17,9 +18,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BoletaDto {
-    private Date fechaEmision;
+    private Long id;
+    private LocalDateTime fechaEmision;
     private ClienteDto cliente;
     private UsuarioSimpleDto usuario;
+    private String tipoVenta;
     private BigDecimal total;
 
 }

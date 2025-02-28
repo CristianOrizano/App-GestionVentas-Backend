@@ -9,13 +9,15 @@ import com.gestionventas.dto.usuario.UsuarioSimpleDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
+import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface UsuarioMapper {
-
     UsuarioDto toDto(Usuario usuario);
     UsuarioSimpleDto toSimpleDto(Usuario usuario);
-
     @Mapping(target = "roles", ignore = true) // Ignorar roles, serán manejados en el servicio
     Usuario toEntity (UsuarioSaveDto usuarioSaveDto);
+
+    @Mapping(target = "roles", ignore = true)
+    Usuario updateEntity(UsuarioSaveDto usuarioSaveDto, @MappingTarget Usuario usuario);
 }

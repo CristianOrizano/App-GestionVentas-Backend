@@ -84,9 +84,9 @@ public class ProductoServiceImpl implements IProductoService {
                 filter.getDescripcion(),
                 filter.getStock(),
                 filter.getPrecio(),
-                filter.getMarca(),
                 filter.getNimagen(),
                 filter.getIdCategoria(),
+                filter.getIdMarca(),
                 filter.getState(),
                 pageable
         );

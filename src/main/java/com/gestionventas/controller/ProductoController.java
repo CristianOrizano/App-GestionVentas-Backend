@@ -114,7 +114,7 @@ public class ProductoController {
             @RequestParam(value = "descripcion", required = false) String descripcion,
             @RequestParam(value = "stock", required = false) Integer stock,
             @RequestParam(value = "precio", required = false) Double precio,
-            @RequestParam(value = "marca", required = false) String marca,
+            @RequestParam(value = "idMarca", required = false) Long idMarca,
             @RequestParam(value = "idCategoria", required = false) Long idCategoria,
             @RequestParam(value = "state", required = false) Boolean state,
             @RequestParam(value = "sortBy", defaultValue = "id") String sortBy,
@@ -131,7 +131,7 @@ public class ProductoController {
                 .descripcion(descripcion)
                 .stock(stock)
                 .precio(precio)
-                .marca(marca)
+                .idMarca(idMarca)
                 .idCategoria(idCategoria)
                 .state(state)
                 .build();

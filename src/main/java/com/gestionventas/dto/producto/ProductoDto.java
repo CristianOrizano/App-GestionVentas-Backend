@@ -2,6 +2,7 @@ package com.gestionventas.dto.producto;
 
 import com.gestionventas.dto.categoria.CategoriaDto;
 import com.gestionventas.dto.categoria.CategoriaSimpleListDto;
+import com.gestionventas.dto.marca.MarcaDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,8 +17,9 @@ public class ProductoDto {
     private String descripcion;
     private Integer stock;
     private Double precio;
-    private String marca;
+    private Integer descuento;
     private String nimagen;
     private CategoriaSimpleListDto categoria;
+    private MarcaDto marca;
     private Boolean state;
 }

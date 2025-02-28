@@ -15,15 +15,22 @@ public class Producto {
     private String descripcion;
     private Integer stock;
     private Double precio;
-    private String marca;
+    private Integer descuento;
     private String nimagen;
 
     @Column(name = "id_categoria")
     private Long idCategoria;
+
+    @Column(name = "id_marca")
+    private Long idMarca;
 
     private Boolean state;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="id_categoria",insertable = false, updatable = false)
     private Categoria categoria;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="id_marca",insertable = false, updatable = false)
+    private Marca marca;
 }

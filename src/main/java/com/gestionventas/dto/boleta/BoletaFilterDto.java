@@ -1,22 +1,17 @@
 package com.gestionventas.dto.boleta;
 
+import com.gestionventas.shared.page.PageRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BoletaSaveDto {
-    private Long idCliente;
-    private Long idUsuario;
+public class BoletaFilterDto extends PageRequest {
     private String tipoVenta;
-    private BigDecimal total;
-    private List<DetalleBoletaDto> detalles;
 }

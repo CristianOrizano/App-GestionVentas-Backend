@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -17,8 +18,8 @@ public class Boleta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Temporal(TemporalType.DATE)
-    private Date fechaEmision;
+    @Column(name = "fecha_emision", columnDefinition = "DATETIME")
+    private LocalDateTime fechaEmision;
 
     @Column(nullable = false,precision = 8, scale = 2)
     private BigDecimal total;
@@ -29,11 +30,14 @@ public class Boleta {
     @Column(name = "id_usuario")
     private Long idUsuario;
 
-    @ManyToOne
+    @Column(name = "tipo_venta")
+    private String tipoVenta;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_cliente",insertable = false, updatable = false)
     private Cliente cliente;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usuario",insertable = false, updatable = false)
     private Usuario usuario;
 

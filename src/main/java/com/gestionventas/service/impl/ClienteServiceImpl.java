@@ -44,6 +44,7 @@ public class ClienteServiceImpl implements IClienteService {
     @Override
     public ClienteDto create(ClienteSaveDto clienteBody) {
         Cliente cliente = clienteMapper.toEntity(clienteBody);
+        cliente.setState(true);
         return clienteMapper.toDto(clienteRepository.save(cliente));
     }
 

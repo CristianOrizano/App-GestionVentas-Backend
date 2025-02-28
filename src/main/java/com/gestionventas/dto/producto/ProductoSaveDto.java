@@ -13,8 +13,8 @@ public class ProductoSaveDto {
     private String descripcion;
     private Integer stock;
     private Double precio;
-    private String marca;
+    private Integer descuento;
     private String nimagen;
     private Long idCategoria;
-
+    private Long idMarca;
 }
