@@ -17,4 +17,16 @@ public interface BoletaRepository extends JpaRepository<Boleta, Long> {
     List<Boleta> findByFechaEmisionBetween(@Param("fechaInicio") LocalDateTime fechaInicio,
                                            @Param("fechaFin") LocalDateTime fechaFin);
 
+    @Query("SELECT b FROM Boleta b WHERE " +
+            "(:fechaInicio IS NULL OR b.fechaEmision >= :fechaInicio) AND " +
+            "(:fechaFin IS NULL OR b.fechaEmision <= :fechaFin) AND " +
+            "(:tipoVenta IS NULL OR b.tipoVenta = :tipoVenta) AND " +
+            "(:idUsuario IS NULL OR b.idUsuario = :idUsuario)")
+    Page<Boleta> findByFilters(
+            @Param("fechaInicio") LocalDateTime fechaInicio,
+            @Param("fechaFin") LocalDateTime fechaFin,
+            @Param("tipoVenta") String tipoVenta,
+            @Param("idUsuario") Long idUsuario,
+            Pageable pageable);
+
 }

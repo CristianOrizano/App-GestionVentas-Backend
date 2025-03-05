@@ -82,9 +82,13 @@ public class BoletaServiceImpl implements IBoletaService {
     public PageResponse<BoletaDto> findPaginated(BoletaFilterDto filter) {
         Sort sort = filter.getSortDir().equalsIgnoreCase("asc") ? Sort.by(filter.getSortBy()).ascending() : Sort.by(filter.getSortBy()).descending();
         Pageable pageable = PageRequest.of(filter.getPage()- 1, filter.getSize(),sort);
-
-        Page<Boleta> Pages = boletaRepository.findAll(pageable);
-
+        Page<Boleta> Pages = boletaRepository.findByFilters(
+                filter.getFechaInicio(),
+                filter.getFechaFin(),
+                filter.getTipoVenta(),
+                filter.getIdUsuario(),
+                pageable
+        );
         List<BoletaDto> boletasDtos = Pages.getContent().stream()
                 .map(boletaMapper::toDto)
                 .toList();

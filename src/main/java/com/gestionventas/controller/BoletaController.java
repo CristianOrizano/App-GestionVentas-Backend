@@ -64,20 +64,35 @@ public class BoletaController {
     public ResponseEntity<PageResponse<BoletaDto>> findAllPaginated(
             @Min(value = 1, message = "Page debe ser número positivo o mayor a 0")
             @RequestParam(name = "page", defaultValue = "1") int page,
-
             @Min(value = 1, message = "Size debe ser número positivo")
             @RequestParam(defaultValue = "10") int size,
-
             @RequestParam(value = "sortBy", defaultValue = "id") String sortBy,
             @Pattern(regexp = "asc|desc", flags = Pattern.Flag.CASE_INSENSITIVE, message = "El valor de 'sortDir' debe ser 'asc' o 'desc'")
-            @RequestParam(value = "sortDir", defaultValue = "asc") String sortDir
+            @RequestParam(value = "sortDir", defaultValue = "asc") String sortDir,
+
+            @RequestParam(value = "fechaInicio", required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaInicio,
+
+            @RequestParam(value = "fechaFin", required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaFin,
+
+            @RequestParam(value = "tipoVenta", required = false) String tipoVenta,
+
+            @RequestParam(value = "idUsuario", required = false) Long idUsuario
     ) {
+        LocalDateTime fechaInicioDateTime = (fechaInicio != null) ? fechaInicio.atStartOfDay() : null;
+        LocalDateTime fechaFinDateTime = (fechaFin != null) ? fechaFin.atTime(23, 59, 59) : null;
+
         // Crear el filtro manualmente
         BoletaFilterDto filter = BoletaFilterDto.builder()
                 .page(page)
                 .size(size)
                 .sortBy(sortBy)
                 .sortDir(sortDir)
+                .fechaInicio(fechaInicioDateTime)
+                .fechaFin(fechaFinDateTime)
+                .tipoVenta(tipoVenta)
+                .idUsuario(idUsuario)
                 .build();
         PageResponse<BoletaDto> response = IboletaService.findPaginated(filter);
         return new ResponseEntity<>(response, HttpStatus.OK);
