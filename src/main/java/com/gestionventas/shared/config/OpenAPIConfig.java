@@ -17,9 +17,9 @@ public class OpenAPIConfig {
 
         return new OpenAPI()
                 .info(new Info()
-                        .title("Gestion Ventas")
+                        .title("ElectroDash")
                         .version("v1")
-                        .description("Backend gestion de ventas")
+                        .description("Backend electrodash")
                         .contact(new Contact()
                                 .name("Cristian Orizano")))
                 .addSecurityItem(
