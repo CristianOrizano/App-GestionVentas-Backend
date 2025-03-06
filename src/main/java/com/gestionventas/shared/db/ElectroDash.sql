@@ -1,8 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `gestionventas` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `gestionventas`;
+CREATE DATABASE  IF NOT EXISTS `electrodash` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `electrodash`;
 -- MySQL dump 10.13  Distrib 8.0.22, for Win64 (x86_64)
 --
--- Host: localhost    Database: gestionventas
+-- Host: localhost    Database: electrodash
 -- ------------------------------------------------------
 -- Server version	8.0.22
 
